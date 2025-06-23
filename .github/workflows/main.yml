@@ -33,6 +33,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          maven-version: '3.9.6'
           cache: maven
 
       # 3. Construir el proyecto y crear el .jar
