@@ -1,11 +1,11 @@
-# .github/workflows/deploy.yml
+# .github/workflows/deploy.yml - codigo del profe jhan
 # 🚀 Pipeline de CI/CD para despliegue local con un Self-Hosted Runner
 
 name: Deploy Locally with Self-Hosted Runner
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   workflow_dispatch: # Permite ejecutar el pipeline manualmente
 
 # Variables de entorno para que docker-compose las use
@@ -20,6 +20,8 @@ env:
 jobs:
   build-and-deploy:
     name: Build and Deploy Locally
+    
+    # 🎯 ¡Paso Clave! Usa el runner que acabas de configurar.
     runs-on: self-hosted
 
     steps:
@@ -34,13 +36,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-          
 
       # 3. Construir el proyecto y crear el .jar
       - name: Build with Maven
         run: mvn -B clean package -DskipTests
 
       # 4. Desplegar la aplicación usando Docker Compose
+      # Estos comandos se ejecutan directamente en tu terminal de WSL2
       - name: Deploy with Docker Compose
         run: |
           echo "✅ Iniciando despliegue en el runner local..."
@@ -61,7 +63,7 @@ jobs:
           sleep 30
           
           echo "💾 Inicializando base de datos desde init.sql..."
-          cat ../sql/init.sql | docker exec -i ${{ env.DB_CONTAINER_NAME }} mysql -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }} ${{ env.DB_NAME }}
+          docker exec -i ${{ env.DB_CONTAINER_NAME }} mysql -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }} ${{ env.DB_NAME }} < ../sql/init.sql
 
           # 4️⃣ Verificamos el estado final
           echo "🔍 Verificando estado de los contenedores..."
