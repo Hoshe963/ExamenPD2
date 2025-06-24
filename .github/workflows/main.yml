@@ -5,7 +5,7 @@ name: Deploy Locally with Self-Hosted Runner
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   workflow_dispatch: # Permite ejecutar el pipeline manualmente
 
 # Variables de entorno para que docker-compose las use
