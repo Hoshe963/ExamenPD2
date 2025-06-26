@@ -5,7 +5,7 @@
 package upeu.edu.pe.ecommerce.infrastructure.entity;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal; // <-- ¡IMPORTACIÓN NECESARIA Y CORRECTA!
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,17 +18,13 @@ public class OrderEntity {
     private Integer id;
     private LocalDateTime dateCreated;
     private String status;
-    
-    // --- LÍNEA CORREGIDA ---
-    // private String total; // <-- LÍNEA ORIGINAL INCORRECTA
-    @Column(precision = 10, scale = 2) // Buena práctica para definir el tipo DECIMAL en la DB
-    private BigDecimal total; // <-- LÍNEA CORREGIDA
+    private String total;
     
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
     
-    @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.PERSIST) // <-- CORRECCIÓN ADICIONAL
+    @Transient
     private List<OrderProductEntity> orderProducts;
     
     public OrderEntity() {
@@ -58,12 +54,11 @@ public class OrderEntity {
         this.status = status;
     }
     
-    // --- MÉTODOS GETTER Y SETTER CORREGIDOS ---
-    public BigDecimal getTotal() {
+    public String getTotal() {
         return total;
     }
     
-    public void setTotal(BigDecimal total) {
+    public void setTotal(String total) {
         this.total = total;
     }
     
@@ -85,12 +80,12 @@ public class OrderEntity {
     
     public void addOrderProduct(List<OrderProductEntity> orderProducts) {
         this.setOrderProducts(orderProducts);
+        
     }
     
     public BigDecimal getTotalOrderPrice(){
-        // Este método ya estaba bien, porque usaba BigDecimal.
-        // Ahora es consistente con el campo 'total'.
         return getOrderProducts().stream().map(p->p.getTotalPrice()
         ).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+    
 }
