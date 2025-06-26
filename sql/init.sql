@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_created DATETIME,
     status VARCHAR(50),
-    total DECIMAL(10,2), -- MODIFICADO
+    total VARCHAR(255) NOT NULL, -- Diego, por qué lo modificaste?
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
