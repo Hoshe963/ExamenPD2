@@ -60,7 +60,7 @@ jobs:
 
           # 3️⃣ Esperamos y ejecutamos el script de la base de datos
           echo "⏳ Esperando 30 segundos para que la DB se estabilice..."
-          sleep 30
+          sleep 10
           
           echo "💾 Inicializando base de datos desde init.sql..."
           docker exec -i ${{ env.DB_CONTAINER_NAME }} mysql -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }} ${{ env.DB_NAME }} < ../sql/init.sql
