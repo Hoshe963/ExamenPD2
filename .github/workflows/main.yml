@@ -59,7 +59,7 @@ jobs:
           docker-compose -p ${{ env.DOCKER_PROJECT_NAME }} up -d --build
 
           # 3️⃣ Esperamos y ejecutamos el script de la base de datos
-          echo "⏳ Esperando 30 segundos para que la DB se estabilice..."
+          echo "⏳ Esperando 10 segundos a que inicie la DB :)"
           sleep 10
           
           echo "💾 Inicializando base de datos desde init.sql..."
@@ -69,7 +69,7 @@ jobs:
           echo "🔍 Verificando estado de los contenedores..."
           docker-compose -p ${{ env.DOCKER_PROJECT_NAME }} ps
           
-          echo "🗒️ Mostrando los últimos logs de la aplicación:"
-          docker logs --tail 100 ${{ env.APP_CONTAINER_NAME }}
+          echo "🗒️ Mostrando los últimos logs de la aplicación (500 últimas para adriansito):"
+          docker logs --tail 500 ${{ env.APP_CONTAINER_NAME }}
           
           echo "🎉 ✓ Despliegue local completado exitosamente."
