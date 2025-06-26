@@ -32,7 +32,7 @@ services:
     ports:
       - '8084:8084'
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3309/ecommerce_lp2_prod?serverTimezone=America/Lima&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/ecommerce_lp2_prod?serverTimezone=America/Lima&useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: admin123
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
